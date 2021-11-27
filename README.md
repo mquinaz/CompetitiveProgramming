@@ -2,6 +2,8 @@
 
 ## Accounts:
 
-### UVA 
+### Vjudge 
 mquinaz
+### Codeforces
+quinaz
 
