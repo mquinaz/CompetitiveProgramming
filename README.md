@@ -11,3 +11,5 @@ arthurbonac@
 ### Spoj
 mquinaz
 
+
+from week 0 missing Codeforces1077C.cpp error
