@@ -6,4 +6,6 @@
 mquinaz
 ### Codeforces
 quinaz
+### Kattis
+arthurbonac@
 
