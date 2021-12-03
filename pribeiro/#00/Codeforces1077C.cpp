@@ -8,24 +8,23 @@ int main()
     int n;
     cin >> n;
     int nums[n];
-    for (int i = 0; i < n; i++)
+    long long int sum = 0;
+    
+    for (int i = 0; i < n; i++){
       cin >> nums[i];
+      sum += nums[i];
+    }
 
     int numNice = 0;
     int vecInd[n];
+    long long int auxSum;
     for (int i = 0; i < n; i++){
         for (int j = 0; j < n; j++){
-            if(j==i)
+            if(j==i){
                 continue;
-            //calculate sum
-            int sum=0;
-            for (int k = 0; k < n; k++){
-                if(i==k || j==k)
-                    continue;
-                //cout << j << "j" << nums[k] << "\n";
-                sum += nums[k];
             }
-            if(sum == nums[j]){
+            auxSum = sum - nums[i] - nums[j];
+            if(auxSum == nums[j]){
                 vecInd[numNice] = i+1;
                 numNice++;
                 break;
