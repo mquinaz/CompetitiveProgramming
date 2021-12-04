@@ -1,35 +1,32 @@
 #include <iostream>
 #include <vector>
-#include <sstream>
+#include<bits/stdc++.h>
 using namespace std;
 
 int main()
 {
     int n;
     cin >> n;
-    int nums[n];
-    long long int sum = 0;
+    long long int nums[n],sum=0;
+    map<long long , long long> cnt;
     
     for (int i = 0; i < n; i++){
       cin >> nums[i];
       sum += nums[i];
+      cnt[nums[i] ]++;
     }
 
-    int numNice = 0;
-    int vecInd[n];
-    long long int auxSum;
+    long long int numNice = 0;
+    long long int vecInd[n];
     for (int i = 0; i < n; i++){
-        for (int j = 0; j < n; j++){
-            if(j==i){
-                continue;
-            }
-            auxSum = sum - nums[i] - nums[j];
-            if(auxSum == nums[j]){
-                vecInd[numNice] = i+1;
-                numNice++;
-                break;
-            }
+        sum -= nums[i];
+        cnt[nums[i]]--;
+        if(cnt[sum/2] && sum % 2 == 0){
+            vecInd[numNice] = i+1;
+            numNice++;
         }
+        sum += nums[i];
+        cnt[nums[i]]++;
     }
     
     cout << numNice << "\n";
