@@ -9,26 +9,25 @@ int main()
     cin >> t;
     
     for(int i=0;i<t;i++){
-		long long n,k;
-		cin >> n >> k;
-		
-		long long nums[k];
-		for(int j=0;j<k;j++){
-			cin >> nums[j];
-		}
-		
-		int count=0;
-		for(int j=0;j<10;j++){
-			long long maxNum = *max_element(nums , nums + k);
-			auto indMax = distance(nums, find(nums, nums + k, maxNum) );
-			//cout << maxNum << " " << indMax << endl;
-			nums[indMax]++;
-			if( nums[indMax] == n){
-				nums[indMax] = -1;
-				count++;
-			}
-		}
-		cout << count << endl;
+	long long n,k;
+	cin >> n >> k;
+
+	long long nums[k],r[k];
+	for(int j=0;j<k;j++){
+		cin >> nums[j];
+		r[j] = n - nums[j];
+	}
+	int sizeR = sizeof(r)/sizeof(r[0]); 
+	//sort the closest mouse, O(n^2) worst case
+        sort(r, r+sizeR);
+        int total = 0,m=0;
+    	for(int j=0;j<k;j++){
+    	    if( total + r[j] < n){
+    	        total += r[j];
+    	        m++;
+    	    }
+    	}
+        cout << m << endl;
 	}
     return 0;
 }
