@@ -21,12 +21,14 @@ int stepsDivisible(string goal, string digit){
         if (!goal.compare(digit.substr(digit.size()-2,digit.size()-1)) )
             return steps;
         
-	//digit.erase(0, min(digit.find_first_not_of('0'), digit.size()-1));
+		//digit.erase(0, min(digit.find_first_not_of('0'), digit.size()-1));
+		//change the last digit if it is wrong
         if( goal[1] != digit[digit.size()-1]){
  			digit = digit.substr(0,digit.size()-1);
 			steps++;
 			continue;   
         }
+        //change second to last digit if it is wrong
         if( goal[0] != digit[digit.size()-2]){
 			digit = digit.substr(0,digit.size()-2) + digit[digit.size()-1];
 			steps++;
