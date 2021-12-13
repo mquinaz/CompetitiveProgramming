@@ -5,6 +5,13 @@
 #include <iterator>
 using namespace std;
 
+/*
+int gcd(int a,int b){
+    if(b==0)return a;
+    else return gcd(b,a%b);
+}
+*/
+
 int main()
 {
     int t;
@@ -13,37 +20,31 @@ int main()
     for(int i=0;i<t;i++){
 		int n;
 		cin >> n;
-		long long nums[n],numsTemp[n];
+		vector<int> a(n);
 		for(int j=0;j<n;j++)
-		    cin >> nums[j];
-		int sizeNums = sizeof(nums)/sizeof(nums[0]); 
-        sort(nums, nums+sizeNums);
+		    cin >> a[j];
+
+		bool inf = true;
+		int minval = a[0];
         
-        //set up numsTemp
-        copy(begin(nums), end(nums), begin(numsTemp));
-        long long diferenceMaxMin = nums[n-1] - nums[0];
-        for(int j=diferenceMaxMin;j>=0;j--){
-            int flagBad = 0;
-            copy(begin(numsTemp), end(numsTemp), begin(nums));
-            for(int k=0;k<n;k++){
-                while( nums[k] < nums[n-1] && !flagBad){
-                    nums[k] += j;
-                }
-                cout << nums[k] << " " << j << " " << flagBad << endl;
-                if(nums[k] == nums[n-1])
-                    continue;
-                else{
-                    flagBad = 1;
-                    break;
-                }
-            }
-            if(flagBad == 1)
-                continue;
-            else{
-                cout << j << endl;
+        for(int j=1;j<n;j++){
+            if (a[j] != a[0]){
+                inf = false;
                 break;
             }
+            minval = min(minval, a[j]);
         }
-	}
+        if (inf)
+		{
+			cout << "-1\n";
+			continue;
+		}
+		sort(a.begin(), a.end());
+		
+		int ans = 0;
+		for (int j = 0; j < n; j++)
+			ans = gcd(ans, a[j] - minval);
+		cout << ans << '\n';
+    }
     return 0;
 }
