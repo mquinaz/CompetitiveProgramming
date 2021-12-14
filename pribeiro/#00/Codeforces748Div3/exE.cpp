@@ -34,7 +34,7 @@ int main()
 		    cin >> u >> v;
 		    addEdge(adj, u-1, v-1);
 		}
-        printGraph(adj,n);
+        //printGraph(adj,n);
         while(k > 0){
             for (int v = 0; v < n; v++){
                 int nrVertex = 0;
@@ -55,12 +55,12 @@ int main()
                     }
                     //remove vertex leaf
                     adj[v].pop_back();
-                    printGraph(adj,n);
+                    //printGraph(adj,n);
                 }
             }
             k--;
         }
-        printGraph(adj,n);
+        //printGraph(adj,n);
         int finalVertex = 0;
         for (int v = 0; v < n; v++)
             for (auto x : adj[v])
