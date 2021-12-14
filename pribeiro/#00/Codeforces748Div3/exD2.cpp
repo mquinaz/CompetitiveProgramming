@@ -1,16 +1,15 @@
-#include <iostream>
-#include <vector>
 #include<bits/stdc++.h>
-#include <algorithm>
-#include <iterator>
 using namespace std;
 
-
-int gcd(int a,int b){
-    if(b==0)return a;
-    else return gcd(b,a%b);
+set<int> divs(int n) {  
+    set<int> d;
+    for (int dd = 1; dd * dd <= n; dd++)
+        if (n % dd == 0) {
+            d.insert(n / dd);
+            d.insert(dd);
+        }
+    return d;
 }
-
 
 int main()
 {
@@ -24,27 +23,31 @@ int main()
 		for(int j=0;j<n;j++)
 		    cin >> a[j];
 
-		bool inf = true;
-		int minval = a[0];
-        
-        for(int j=1;j<n;j++){
-            if (a[j] != a[0]){
-                inf = false;
-                break;
+        int k = -1;
+        for(int j=0;j<n;j++){
+            int minv = a[j];
+            int same = 0;
+            vector<int> d;
+            for(int j1=0;j1<n;j1++) {
+                if (a[j1] == minv)
+                    same++;
+                else if (a[j1] > minv)
+                    d.push_back(a[j1] - minv);
             }
-            minval = min(minval, a[j]);
+            if (same >= n / 2) {
+                k = INT_MAX;
+                continue;
+            }
+        
+            map<int,int> div_counts;
+            for (int di: d)
+                for (int dd: divs(di))
+                    div_counts[dd]++;
+            for (auto p: div_counts)
+                if (p.second >= n / 2 - same)
+                    k = max(k, p.first);
         }
-        if (inf)
-		{
-			cout << "-1\n";
-			continue;
-		}
-		sort(a.begin(), a.end());
-		
-		int ans = 0;
-		for (int j = 0; j < n; j++)
-			ans = gcd(ans, a[j] - minval);
-		cout << ans << '\n';
+        cout << (k == INT_MAX ? -1 : k) << endl;
     }
     return 0;
 }
