@@ -3,23 +3,28 @@ using namespace std;
 
 int main()
 {
-    string n;
-    while( getline(cin,n,'0') ){
-		int nInt = stoi(n);
-		vector<int> frosh[nInt];
-		for( int i=0;i<nInt;i++){
-			int c1,c2,c3,c4,c5;
-			cin >> c1 >> c2 >> c3 >> c4 >> c5;
-			frosh[i].push_back(c1);
-			frosh[i].push_back(c2);
-			frosh[i].push_back(c3);
-			frosh[i].push_back(c4);
-			frosh[i].push_back(c5);
+    int n;
+    map<vector<int>, int> m;
+    while(cin >> n, n) {
+        m.clear();
+		vector<int> frosh[n];
+		for( int i=0;i<n;i++){
+    	    vector<int> c(5);
+    	    for(auto &x: c) 
+    	        cin >> x;
+    	    sort(c.begin(), c.end());
+    	    m[c]++;
 		}
 		
-		for( int i=0;i<nInt;i++)
-			for( int j=0;j<5;j++)
-				cout << frosh[i][j] << endl;
+    	int max_val = 0;
+    	for(map<vector<int>, int>::iterator it=m.begin(); it!=m.end(); it++) {
+    	    max_val = max(max_val, it->second);
+    	}
+    	int cnt = 0;
+    	for(map<vector<int>, int>::iterator it=m.begin(); it!=m.end(); it++) {
+    	    if(it->second == max_val) cnt++;
+    	}
+    	cout << max_val*cnt << '\n';
 	}
 	
 	return 0;
