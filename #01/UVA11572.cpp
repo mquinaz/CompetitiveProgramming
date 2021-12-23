@@ -5,19 +5,29 @@ int main()
 {
     int t;
     cin >> t;
-    map<long long,int> l;
     for(int i=0;i<t;i++){
-        l.clear();
         int n;
         cin >> n;
+        
+        int max_seq = 0;
         for(int j=0;j<n;j++){
             long long snow;
             cin >> snow;
-            l[snow]++;
+            
+            unordered_map<long long,int> snowflakePosition;
+            pair<int, int> Segment;
+            Segment[n] segmentsByStart;
+            Segment[n] segmentsByEnd;
+            int current_Sequence = 0;
+            
+            while( !snowflakePosition.find(snow) ){
+                snowflakePosition.insert(snow);
+                current_Sequence++;
+            }
+            if( current_Sequence > max_seq)
+                max_seq = current_Sequence;
         }
-        
-        int sizeUnique = l.size();
-        cout << min(n,sizeUnique) << endl;
+        cout << max_seq << endl;
     }
 	
 	return 0;
