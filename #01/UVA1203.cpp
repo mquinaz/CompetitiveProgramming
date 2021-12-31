@@ -18,7 +18,15 @@ int main()
     int K;
     cin >> K;
     
-    pair<int, int> top = pq.top();
-    cout << top.first << " " << top.second;
+    int totalInc = 0;
+    while(k > 0){
+        pair<int, int> top = pq.top();
+        cout << top.first << " " << top.second;
+        if(top.first - totalInc <= 0){
+            pq.pop();
+            pq.push(make_pair(top.first, top.second));
+        }
+        totalInc++;
+    }
     return 0;
 }
