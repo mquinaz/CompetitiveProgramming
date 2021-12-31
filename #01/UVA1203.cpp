@@ -19,12 +19,13 @@ int main()
     cin >> K;
     
     int totalInc = 0;
-    while(k > 0){
+    while(K > 0){
         pair<int, int> top = pq.top();
-        cout << top.first << " " << top.second;
+        //explorar resto divisao inteira quando se repete o nr
         if(top.first - totalInc <= 0){
             pq.pop();
             pq.push(make_pair(top.first, top.second));
+            cout << top.first << " " << top.second;
         }
         totalInc++;
     }
