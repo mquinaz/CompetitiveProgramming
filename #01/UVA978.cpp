@@ -21,27 +21,49 @@ int main()
             lBlue.insert(x);
         }    
         
-        multiset <int, greater <int> > :: iterator itr;
+        multiset <int, greater <int> > :: iterator itr,itr2;
         while(lBlue.size() && lGreen.size()){
             int turns = min(B,min((int) lBlue.size(),(int) lGreen.size()));
-            /*for(int i=0;i<turns;i++){
-                itr = lBlue.begin() + i;
-                int blue = *(lBlue.begin()+i);
-                int green = *(lGreen.begin()+i);
-                
-                if(blue > green){
-                    *(lBlue.begin()+i) -= *(lGreen.begin()+i);
-                    lBlue.erase(lBlue.find());
+            for(int i=0;i<turns;i++){
+                int j=0;
+                for (itr = lBlue.begin(); itr != lBlue.end(); ++itr){
+                    if(j == i)
+                        break;
+                    j++;
                 }
-                else{
-                    lGreen.erase(lGreen.find());
-                    lGreen.erase(lGreen.find());
+                //itr = lBlue.begin() + i;
+                int blue = *(itr);
+                j=0;
+                for (itr2 = lBlue.begin(); itr2 != lBlue.end(); ++itr2){
+                    if(j == i)
+                        break;
+                    j++;
+                }
+                //int green = *(lGreen.begin()+i);
+                int green = *(itr2);
+                
+                //blue wins
+                if(blue > green){
+                    blue -= green;
+                    lGreen.erase(lGreen.find(green));
+                    if(blue <= 0)
+                        lBlue.erase(lBlue.find(blue));
+                }
+                //green wins
+                if(green > blue){
+                    green -= blue;
+                    lBlue.erase(lBlue.find(blue));
+                    if(green <= 0)
+                        lGreen.erase(lGreen.find(green));
+                }
+                if(green == blue){
+                    lBlue.erase(lBlue.find(blue));
+                    lGreen.erase(lGreen.find(green));
                 }
             }
-            //for (itr = lBlue.begin(); itr!= lBlue.end(); itr++)
-        }*/
-        
-        
+        }
+        cout << "asd";
+        cout << lBlue.size() << lGreen.size() << endl;
         if(!lBlue.size() && !lGreen.size()){
             cout << "green and blue died" << endl;
         }
