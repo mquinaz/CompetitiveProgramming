@@ -31,52 +31,56 @@ int main()
                         break;
                     j++;
                 }
-                cout << "asj" << endl;
                 //itr = lBlue.begin() + i;
                 int blue = *(itr);
                 
                 j=0;
-                for (itr2 = lBlue.begin(); itr2 != lBlue.end(); ++itr2){
+                for (itr2 = lGreen.begin(); itr2 != lGreen.end(); ++itr2){
                     if(j == i)
                         break;
                     j++;
                 }
                 //int green = *(lGreen.begin()+i);
                 int green = *(itr2);
-                cout << blue << green << endl;
+                cout << "round: " << (i+1) << " green: " << green << " vs blue:" << blue << endl;
                 //blue wins
                 if(blue > green){
-                    blue -= green;
-                    lGreen.erase(lGreen.find(green));
-                    if(blue <= 0)
-                        lBlue.erase(lBlue.find(blue));
+                    //we delete green that died, blue that won, and the remaining blue
+                    int tempBlue = blue - green;
+                    lBlue.erase(blue);
+                    lBlue.insert(tempBlue);
+                    lGreen.erase(green);
+                    continue;
                 }
                 //green wins
                 if(green > blue){
-                    green -= blue;
-                    lBlue.erase(lBlue.find(blue));
-                    if(green <= 0)
-                        lGreen.erase(lGreen.find(green));
+                    //we delete blue that died, green that won, and the remaining green
+                    int tempGreen = green - blue;
+                    lGreen.erase(green);
+                    lGreen.insert(tempGreen);
+                    lBlue.erase(blue);
+                    continue;
                 }
                 if(green == blue){
-                    lBlue.erase(lBlue.find(blue));
-                    lGreen.erase(lGreen.find(green));
+                    lBlue.erase(blue);
+                    lGreen.erase(green);
                 }
             }
         }
 
-        cout << lBlue.size() << lGreen.size() << endl;
+        cout << "G size:" << lGreen.size() << " B size:" << lBlue.size() << endl;
         if(!lBlue.size() && !lGreen.size()){
             cout << "green and blue died" << endl;
         }
+
         if(!lBlue.size() && lGreen.size()){
-            cout << "blue wins" << endl;
-            for (itr = lBlue.begin(); itr!= lBlue.end(); itr++)
+            cout << "green wins" << endl;
+            for (itr = lGreen.begin(); itr!= lGreen.end(); itr++)
                 cout << *itr << endl;
         }
         if(!lGreen.size() && lBlue.size()){
-            cout << "green wins" << endl;
-            for (itr = lGreen.begin(); itr!= lGreen.end(); itr++)
+            cout << "blue wins" << endl;
+            for (itr = lBlue.begin(); itr!= lBlue.end(); itr++)
                 cout << *itr << endl;
         }
     }
