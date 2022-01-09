@@ -31,8 +31,10 @@ int main()
                         break;
                     j++;
                 }
+                cout << "asj" << endl;
                 //itr = lBlue.begin() + i;
                 int blue = *(itr);
+                
                 j=0;
                 for (itr2 = lBlue.begin(); itr2 != lBlue.end(); ++itr2){
                     if(j == i)
@@ -41,7 +43,7 @@ int main()
                 }
                 //int green = *(lGreen.begin()+i);
                 int green = *(itr2);
-                
+                cout << blue << green << endl;
                 //blue wins
                 if(blue > green){
                     blue -= green;
@@ -62,17 +64,17 @@ int main()
                 }
             }
         }
-        cout << "asd";
+
         cout << lBlue.size() << lGreen.size() << endl;
         if(!lBlue.size() && !lGreen.size()){
             cout << "green and blue died" << endl;
         }
-        if(!lBlue.size()){
+        if(!lBlue.size() && lGreen.size()){
             cout << "blue wins" << endl;
             for (itr = lBlue.begin(); itr!= lBlue.end(); itr++)
                 cout << *itr << endl;
         }
-        if(!lGreen.size()){
+        if(!lGreen.size() && lBlue.size()){
             cout << "green wins" << endl;
             for (itr = lGreen.begin(); itr!= lGreen.end(); itr++)
                 cout << *itr << endl;
