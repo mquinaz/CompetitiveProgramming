@@ -24,7 +24,12 @@ int main()
         multiset <int, greater <int> > :: iterator itr,itr2;
         while(lBlue.size() && lGreen.size()){
             int turns = min(B,min((int) lBlue.size(),(int) lGreen.size()));
+            //int addEndSet[2][turns];
+            //int indEndSet = 0;
+            
             for(int i=0;i<turns;i++){
+                if( (lBlue.size()==0) || (lGreen.size()==0) )
+                    break;
                 int j=0;
                 for (itr = lBlue.begin(); itr != lBlue.end(); ++itr){
                     if(j == i)
@@ -47,25 +52,63 @@ int main()
                 if(blue > green){
                     //we delete green that died, blue that won, and the remaining blue
                     int tempBlue = blue - green;
-                    lBlue.erase(blue);
+                    //lBlue.erase(blue);
+                    //lBlue.insert(tempBlue);
+                    //lGreen.erase(green);
+                    i--;
+                    multiset <int, greater <int> > :: iterator hit(lBlue.find(blue));
+                    if (hit== lBlue.begin())
+                        lBlue.erase(hit);
+                    hit = (lGreen.find(green));
+                    if (hit== lGreen.begin())
+                        lGreen.erase(hit);
                     lBlue.insert(tempBlue);
-                    lGreen.erase(green);
+                    //addEndSet[1][indEndSet] = tempBlue;
+                    //addEndSet[0][indEndSet] = 0;
+                    //indEndSet++;
                     continue;
                 }
                 //green wins
                 if(green > blue){
                     //we delete blue that died, green that won, and the remaining green
                     int tempGreen = green - blue;
-                    lGreen.erase(green);
+                    //lGreen.erase(green);
+                    //lGreen.insert(tempGreen);
+                    //lBlue.erase(blue);
+                    multiset <int, greater <int> > :: iterator hit(lBlue.find(blue));
+                    if (hit== lBlue.begin())
+                        lBlue.erase(hit);
+                    hit = (lGreen.find(green));
+                    if (hit== lGreen.begin())
+                        lGreen.erase(hit);
                     lGreen.insert(tempGreen);
-                    lBlue.erase(blue);
+                    //addEndSet[0][indEndSet] = tempGreen;
+                    //addEndSet[1][indEndSet] = 0;
+                    //indEndSet++;
+                    i--;
                     continue;
                 }
                 if(green == blue){
-                    lBlue.erase(blue);
-                    lGreen.erase(green);
+                    i--;
+                    //lBlue.erase(blue);
+                    multiset <int, greater <int> > :: iterator hit(lBlue.find(blue));
+                    if (hit== lBlue.begin())
+                        lBlue.erase(hit);
+                    hit = (lGreen.find(green));
+                    if (hit== lGreen.begin())
+                        lGreen.erase(hit);
+                    //lGreen.erase(green);
                 }
             }
+            /*
+            //adding surviver lemmings
+            for(int i1=0;i1<indEndSet;i1++){
+                if(addEndSet[1][i1] != 0)
+                    lBlue.insert(addEndSet[1][i1]);
+                if(addEndSet[0][i1] != 0)
+                    lGreen.insert(addEndSet[0][i1]);
+            }
+            */
         }
 
         cout << "G size:" << lGreen.size() << " B size:" << lBlue.size() << endl;
@@ -83,7 +126,19 @@ int main()
             for (itr = lBlue.begin(); itr!= lBlue.end(); itr++)
                 cout << *itr << endl;
         }
+        
+        cout << endl;
     }
 	
 	return 0;
 }
+
+/*
+3 3 3
+10
+20
+30
+30
+100
+30
+*/
