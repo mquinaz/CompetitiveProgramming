@@ -24,12 +24,14 @@ int main()
         multiset <int, greater <int> > :: iterator itr,itr2;
         while(lBlue.size() && lGreen.size()){
             int turns = min(B,min((int) lBlue.size(),(int) lGreen.size()));
-            //int addEndSet[2][turns];
-            //int indEndSet = 0;
+            int addEndSet[2][turns];
+            int indEndSet = 0;
             
             for(int i=0;i<turns;i++){
                 if( (lBlue.size()==0) || (lGreen.size()==0) )
                     break;
+                    
+                //getting the strongest blue  at the current turn I
                 int j=0;
                 for (itr = lBlue.begin(); itr != lBlue.end(); ++itr){
                     if(j == i)
@@ -39,6 +41,7 @@ int main()
                 //itr = lBlue.begin() + i;
                 int blue = *(itr);
                 
+                //getting the strongest green the current turn I
                 j=0;
                 for (itr2 = lGreen.begin(); itr2 != lGreen.end(); ++itr2){
                     if(j == i)
@@ -47,7 +50,8 @@ int main()
                 }
                 //int green = *(lGreen.begin()+i);
                 int green = *(itr2);
-                cout << "round: " << (i+1) << " green: " << green << " vs blue:" << blue << endl;
+                //cout << "round: " << (i+1) << " green: " << green << " vs blue:" << blue << endl;
+                
                 //blue wins
                 if(blue > green){
                     //we delete green that died, blue that won, and the remaining blue
@@ -56,16 +60,21 @@ int main()
                     //lBlue.insert(tempBlue);
                     //lGreen.erase(green);
                     i--;
+                    //only later I found we can use pop, but the following method is to
+                    //remove only one copy even if it has duplicates
                     multiset <int, greater <int> > :: iterator hit(lBlue.find(blue));
                     if (hit== lBlue.begin())
                         lBlue.erase(hit);
                     hit = (lGreen.find(green));
                     if (hit== lGreen.begin())
                         lGreen.erase(hit);
-                    lBlue.insert(tempBlue);
-                    //addEndSet[1][indEndSet] = tempBlue;
-                    //addEndSet[0][indEndSet] = 0;
-                    //indEndSet++;
+                    //lBlue.insert(tempBlue);
+                    //we can't directly insert surviving lemming or it will give wrong order results
+                    //so we store the values in a matrix(the first dimension for knowing if it is blue or green)
+                    //and then at the end of the turns we add all values
+                    addEndSet[1][indEndSet] = tempBlue;
+                    addEndSet[0][indEndSet] = 0;
+                    indEndSet++;
                     continue;
                 }
                 //green wins
@@ -81,10 +90,10 @@ int main()
                     hit = (lGreen.find(green));
                     if (hit== lGreen.begin())
                         lGreen.erase(hit);
-                    lGreen.insert(tempGreen);
-                    //addEndSet[0][indEndSet] = tempGreen;
-                    //addEndSet[1][indEndSet] = 0;
-                    //indEndSet++;
+                    //lGreen.insert(tempGreen);
+                    addEndSet[0][indEndSet] = tempGreen;
+                    addEndSet[1][indEndSet] = 0;
+                    indEndSet++;
                     i--;
                     continue;
                 }
@@ -100,7 +109,7 @@ int main()
                     //lGreen.erase(green);
                 }
             }
-            /*
+            
             //adding surviver lemmings
             for(int i1=0;i1<indEndSet;i1++){
                 if(addEndSet[1][i1] != 0)
@@ -108,10 +117,10 @@ int main()
                 if(addEndSet[0][i1] != 0)
                     lGreen.insert(addEndSet[0][i1]);
             }
-            */
+            
         }
 
-        cout << "G size:" << lGreen.size() << " B size:" << lBlue.size() << endl;
+        //cout << "G size:" << lGreen.size() << " B size:" << lBlue.size() << endl;
         if(!lBlue.size() && !lGreen.size()){
             cout << "green and blue died" << endl;
         }
@@ -132,13 +141,3 @@ int main()
 	
 	return 0;
 }
-
-/*
-3 3 3
-10
-20
-30
-30
-100
-30
-*/
