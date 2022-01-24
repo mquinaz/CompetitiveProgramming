@@ -19,7 +19,7 @@ int main()
             long long snow;
             cin >> snow;
             
-            if( snowflakePosition.find(snow)->first)
+            if( snowflakePosition.find(snow)== snowflakePosition.end())
             {
                 snowflakePosition.insert({snow,j});
                 continue;
@@ -36,20 +36,21 @@ int main()
         
         for(int p=0;p<n;p++)
         {
+            unordered_map<long long,int>::iterator itr;
             pair<int, int> s1 = segmentsByStart[p];
             if(s1.second == -1)
             {
-               
-               create two segments that both start at p and end at n
+               pair<int, int> auxSegment = make_pair(p,n);
             }
             else
                 s1 = make_pair(-1,-1);
             
             int len = s1.second - s1.first;
-                        
-            //find s2, the next non-null endpoint in segmentsByEnd
-            // if s2 is contained in s1
-            //recalculate len as the distance from s1.start to s2.end
+        
+            pair<int, int> s2 = segmentsByEnd[p];
+            if(s2.first >= s1.first && s2.second <= s1.second)
+                len = s1.first - s2.second;
+
             if(len > max_seq)
                 max_seq = len;
         }
