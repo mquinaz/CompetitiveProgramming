@@ -1,0 +1,39 @@
+# For password exercise:
+cheking strings view, we can see the string "correct" or "incorrect", following that:
+
+sub_401090 proc near
+
+Str1= byte ptr -104h
+var_4= dword ptr -4
+
+push    ebp
+mov     ebp, esp
+sub     esp, 104h
+mov     eax, ___security_cookie
+xor     eax, ebp
+mov     [ebp+var_4], eax
+push    100h            ; Size
+lea     eax, [ebp+Str1]
+push    0               ; Val
+push    eax             ; ArgList
+call    memset
+push    offset Format   ; "Enter password: "
+call    sub_401020
+lea     eax, [ebp+Str1]
+push    eax             ; Arglist
+push    offset aS       ; "%s"
+call    sub_401050
+push    7               ; MaxCount
+lea     eax, [ebp+Str1]
+push    offset Str2     ; "cr4ckm3"
+push    eax             ; Str1
+call    ds:strncmp
+add     esp, 24h
+test    eax, eax
+jnz     short loc_401109
+
+where two blocks had either "correct" or "incorrect". Even without the comments we can see that strcmp is comparing input with str2(password) and then test eax,eax to see if 0.
+
+
+# Exercise Good_luck
+
