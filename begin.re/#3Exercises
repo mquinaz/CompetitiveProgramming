@@ -32,8 +32,30 @@ add     esp, 24h
 test    eax, eax
 jnz     short loc_401109
 
-where two blocks had either "correct" or "incorrect". Even without the comments we can see that strcmp is comparing input with str2(password) and then test eax,eax to see if 0.
+where two blocks had either "correct" or "incorrect". Even without the comments we can see that strcmp is comparing input with str2(password) 
+and then test eax,eax to see if 0.
 
 
 # Exercise Good_luck
 
+towards top of code: cmp [ebp + argc], 2  
+This is comparing if there are two arguments provided.  The name of the program will be the first argument, and then something else is the second argument.  
+If 2 arguments aren't provided, then it jumps to section of code towards the bottom that deals with function cleanup.  
+
+mov eax, [ebp+argv]
+push dword ptr [eax+4]
+call atoi
+This is moving the list of arguments into eax, then pushing the second argument (eax + 4) onto the stack. Recall that we push function arguments onto the stack
+before a function call.  Atoi is called, which converts a string to an integer.  This converts the number we passed along with the program name on the 
+command line from a string into a number the computer can use to compare.  
+
+test eax,eax
+jz  location
+This makes sure that the return value of atoi is not 0.  If it was, then something error'd out and then the program jumps to the end.  
+Otherwise, if the atoi conversion went successfully, we continue.
+
+lea eax [eax+eax*4]
+cmp eax, 181Ah
+Lea puts the address of the second operand into the first operand, and using brackets[] means address.  So whatever we put in the brackets will be put into eax. 
+That means our second parameter must be eax.  So we need to find eax such that 181Ah = eax+eax*4.  This simplifies to 181Ah = eax*5.  So, eax = 4D2 (divide 181Ah by 5h). 
+Converted to decimal is 1234.
