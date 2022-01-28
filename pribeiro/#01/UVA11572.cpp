@@ -12,25 +12,27 @@ int main()
         
         int max_seq = 0;
         unordered_map<long long,int> snowflakePosition;
-        pair<int, int> Segment;
         pair<int, int> segmentsByStart[n];
         pair<int, int> segmentsByEnd[n];
         for(int j=0;j<n;j++){
             long long snow;
             cin >> snow;
             
-            if( snowflakePosition.find(snow)== snowflakePosition.end())
-            {
-                snowflakePosition.insert({snow,j});
+            int previousPos = -1;
+            for (auto itr = snowflakePosition.find(snow); itr != snowflakePosition.end(); itr++)
+                if(itr->second >= 0)
+                    previousPos = itr->second;
+                 
+            cout << previousPos << endl;
+            snowflakePosition.insert({snow,j});
+            if( previousPos < 0)
                 continue;
-            }
+            
             else
             {
-                int previousPos = (snowflakePosition.begin())->second;
                 int currentPos = j;
-                pair<int, int> auxPair = make_pair(previousPos,currentPos);
-                segmentsByStart[previousPos] = auxPair;
-                segmentsByEnd[currentPos] = auxPair;
+                segmentsByStart[previousPos] = make_pair(previousPos,currentPos);
+                segmentsByEnd[currentPos] = make_pair(previousPos,currentPos);
             }
         }
         
