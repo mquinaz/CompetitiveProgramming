@@ -43,17 +43,18 @@ int main()
         
         int low = 1;
         int high = s;
+        cout << endl;
         while(low < high)
         {
-            int middle = low + (high - middle)/2;
-
+            int middle = low + (high - low)/2;
+            //cout << low << " " << middle << " " << high << endl;
             if ( possible(campsites,K,middle) )
                 high = middle;
             else
                 low = middle + 1;
             
-            if( !possible(campsites,K,low) )
-                break;
+            //if( !possible(campsites,K,low) )
+            //    break;
         }
         cout << high << endl;
     }
