@@ -2,6 +2,30 @@
 using namespace std;
 
 //binary search - balanced partition
+bool possible(vector<int> v, int K, int S)
+{
+    int sum = 0;
+    int ind = K;
+    for(int i=0;i<v.size();i++)
+    {
+        if(ind > 0)
+        {
+            if( sum + v[i] <= S)
+            {
+                sum += v[i];
+            }
+            else
+            {
+                sum = v[i];
+                ind--;
+            }
+        }
+        else
+            return false;
+    }
+    return true;
+}
+
 int main()
 {
     int N,K;
@@ -21,18 +45,17 @@ int main()
         int high = s;
         while(low < high)
         {
-            int middle = low + (high - mid)/2;
-            /*possible(middle);
-            if (bool)
+            int middle = low + (high - middle)/2;
+
+            if ( possible(campsites,K,middle) )
                 high = middle;
             else
                 low = middle + 1;
             
-            if( possible(low) == no)
+            if( !possible(campsites,K,low) )
                 break;
-            */
         }
-        
+        cout << high << endl;
     }
     
     
