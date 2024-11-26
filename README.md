@@ -7,7 +7,7 @@ Quinaz (https://www.codingame.com/profile/7c20325fc4cc6955e1a4c954da545b8f661961
 ### Codeforces
 quinaz (https://codeforces.com/profile/Quinaz)
 ### CSES
-quinaz (https://cses.fi/user/289620)
+quinaz (https://cses.fi/problemset/user/289620)
 ### Vjudge 
 mquinaz
 ### Kattis
