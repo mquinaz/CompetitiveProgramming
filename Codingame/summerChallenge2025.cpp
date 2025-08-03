@@ -10,6 +10,9 @@
 
 #define MAX_DEPTH 1
 
+/*
+Implementation for minimax for all agents, possible actions Move, Shoot, Throw bomb, defend
+*/
 using namespace std;
 
 class Utils 
